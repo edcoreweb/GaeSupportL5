@@ -4,6 +4,7 @@ namespace Shpasser\GaeSupportL5\Setup;
 
 use Illuminate\Console\Command;
 use Artisan;
+use Shpasser\GaeSupportL5\Storage\Optimizer;
 use Dotenv\Dotenv;
 
 /**
@@ -65,9 +66,8 @@ class Configurator
         $this->processFile($config_filesystems_php, ['addGaeDisk']);
 
         if ($cacheConfig) {
-            $env = new Dotenv(dirname($env_production_file),
-                              basename($env_production_file));
-            $env->overload();
+            new Dotenv(dirname($env_production_file),
+                         basename($env_production_file));
 
             $result = Artisan::call('config:cache', array());
             if ($result === 0) {
@@ -110,7 +110,7 @@ class Configurator
             }
         }
 
-        $env = new EnvHelper;
+        $env = new IniHelper;
         $env->read($env_file);
 
         $env['APP_ENV']   = 'production';
@@ -165,7 +165,7 @@ class Configurator
             }
         }
 
-        $env = new EnvHelper;
+        $env = new IniHelper;
         $env->read($env_file);
 
         $env['APP_ENV']   = 'local';
@@ -193,10 +193,10 @@ class Configurator
     /**
      * Adds 'Optimizer' options to an environment object.
      *
-     * @param \Shpasser\GaeSupportL5\Setup\EnvHelper $env
+     * @param \Shpasser\GaeSupportL5\Setup\IniHelper $env
      * the environment object to modify.
      */
-    protected function addOptimizerOptions(EnvHelper $env)
+    protected function addOptimizerOptions(IniHelper $env)
     {
         $env['CACHE_SERVICES_FILE']  = 'false';
         $env['CACHE_CONFIG_FILE']    = 'false';

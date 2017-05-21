@@ -2,6 +2,9 @@
 
 namespace Shpasser\GaeSupportL5\Storage;
 
+use Dotenv;
+use InvalidArgumentException;
+
 /**
  * Initializes caching of Laravel 5.1 configuration files on GAE.
  */
