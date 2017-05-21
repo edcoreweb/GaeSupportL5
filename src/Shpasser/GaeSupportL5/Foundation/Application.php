@@ -60,58 +60,11 @@ class Application extends IlluminateApplication
             $this->replaceDefaultSymfonyLineDumpers();
         }
 
-        $this->optimizer = new Optimizer($basePath, $this->runningInConsole());
-        $this->optimizer->bootstrap();
+        // $this->optimizer = new Optimizer($basePath, $this->runningInConsole());
+        // $this->optimizer->bootstrap();
 
         parent::__construct($basePath);
     }
-
-
-    /**
-     * Get the path to the configuration cache file.
-     *
-     * @return string
-     */
-    public function getCachedConfigPath()
-    {
-        $path = $this->optimizer->getCachedConfigPath();
-
-        return $path ?: parent::getCachedConfigPath();
-    }
-
-
-    /**
-     * Get the path to the routes cache file.
-     *
-     * @return string
-     */
-    public function getCachedRoutesPath()
-    {
-        $path = $this->optimizer->getCachedRoutesPath();
-
-        return $path ?: parent::getCachedRoutesPath();
-    }
-
-    /**
-     * Get the path to the cached services.json file.
-     *
-     * @return string
-     */
-    public function getCachedServicesPath()
-    {
-        $path = $this->optimizer->getCachedServicesPath();
-
-        if ($path) {
-            return $path;
-        }
-
-        if ($this->isRunningOnGae()) {
-            return $this->storagePath().'/framework/services.json';
-        }
-
-        return parent::getCachedServicesPath();
-    }
-
 
     /**
      * Detect if the application is running on GAE.

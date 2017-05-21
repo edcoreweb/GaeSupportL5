@@ -329,9 +329,7 @@ class Configurator
         $expression = "/'compiled'\s*=>\s*(.+(,|(?=\s+\]))|[^,]+(,|(?=\s+\])))/";
         $replacement =
 <<<EOT
-'compiled' => env('CACHE_COMPILED_VIEWS') ?
-                  Shpasser\GaeSupportL5\Storage\Optimizer::COMPILED_VIEWS_PATH :
-                  storage_path('framework/views'),
+'compiled' => storage_path('framework/views'),
 EOT;
 
         $modified = preg_replace($expression, $replacement, $contents);
